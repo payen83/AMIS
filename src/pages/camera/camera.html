@@ -1,0 +1,59 @@
+<ion-content class="main-view">
+  <div class="overlay" (click)="dismiss()"></div>
+  
+  <ion-grid class="modal_content">
+    <ion-row>
+        
+      <ion-col col-6>
+          <ion-card class>
+              <img src="assets/imgs/Filter-Building.jpg"/>
+              <div class="card-icon"><ion-icon name="cloud-upload"></ion-icon></div>
+              <!-- <div class="card-btn"> <button class="btnwidth" ion-button block color="primary" block>Take Photo</button></div> -->
+              <p>{{ myphoto }}</p>
+              <div class="card-btn"> <button class="btnwidth" ion-button (click)="takePhoto()" block color="primary" block>Upload Image</button></div>
+            </ion-card>
+       
+      </ion-col>
+
+      <ion-col col-6>
+        <ion-item>
+          <ion-label stacked color="dark">Image Attachment ID</ion-label>
+          <ion-input type="text"></ion-input>
+        </ion-item>
+
+        <ion-item>
+            <ion-label stacked color="dark">Image Title</ion-label>
+            <ion-input type="text"></ion-input>
+        </ion-item>
+
+        <ion-item>
+              <ion-label stacked color="dark">Image Description</ion-label>
+              <ion-input type="text"></ion-input>
+        </ion-item>
+
+          <ion-item>
+              <ion-label stacked color="dark">Date of image being captured</ion-label>
+              <ion-input type="text"></ion-input>
+        </ion-item>
+
+        <ion-item>
+            <ion-label stacked color="dark">Date uploaded</ion-label>
+            <ion-input type="text"></ion-input>
+      </ion-item>
+      </ion-col>
+
+      <ion-col col-4 offset-8 class="save">
+          <ion-buttons end>
+              <button ion-button full (click)="closeModal()">
+                  Save
+              </button>
+          </ion-buttons>
+        </ion-col>
+       <!-- <ion-col col-2>
+          <button ion-button full>Save</button>
+       </ion-col> -->
+
+    </ion-row>
+  </ion-grid>
+
+</ion-content>

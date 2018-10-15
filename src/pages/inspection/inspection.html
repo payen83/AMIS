@@ -1,0 +1,174 @@
+<ion-content>
+  <div padding>
+  
+    <div>
+        <ion-grid>
+          <ion-row>
+            <ion-col col-8>
+              <ion-searchbar (ionInput)="getItems($event)"></ion-searchbar>
+            </ion-col>
+  
+            <ion-col col-2>
+              <button ion-button icon-end color="orange" outline>Edit Asset
+                <ion-icon ios="ios-create" md="md-create"></ion-icon>
+              </button>
+            </ion-col>
+  
+            <ion-col col-2>
+              <button icon-end class="button-color" ion-button>Save Asset
+                <ion-icon name="download"></ion-icon>
+              </button>
+            </ion-col>
+  
+          </ion-row>
+        </ion-grid>
+  
+      </div>
+  
+  
+    <ion-segment color="light" [(ngModel)]="inspect">
+      <ion-segment-button value="general-info">
+        General Info
+      </ion-segment-button>
+  
+      <ion-segment-button value="routine">
+        Routine
+      </ion-segment-button>
+  
+      <ion-segment-button value="structure">
+        Structure
+      </ion-segment-button>
+    
+  
+    <ion-segment-button value="hazard">
+      Hazard Risk
+    </ion-segment-button>
+    
+  
+    <ion-segment-button value="media">
+      Media
+    </ion-segment-button>
+    </ion-segment>
+
+  </div>
+
+  <div [ngSwitch]="inspect">
+    <div *ngSwitchCase="'general-info'">
+      <ion-grid>
+        <ion-row>
+
+          <ion-col col-6>
+            <ion-item>
+              <ion-label stacked color="dark">Inspection No</ion-label>
+              <ion-input type="text"></ion-input>
+            </ion-item>
+          
+            <ion-item>
+              <ion-label stacked color="dark">Asset ID</ion-label>
+              <ion-input type="text"></ion-input>
+            </ion-item>
+          
+            <ion-item>
+              <ion-label stacked color="dark">RFID ID</ion-label>
+              <ion-input type="text"></ion-input>
+            </ion-item>
+          
+            <ion-item>
+              <ion-label stacked color="dark">Type of Inspection</ion-label>
+              <ion-input type="text"></ion-input>
+            </ion-item>
+          
+            <ion-item>
+              <ion-label stacked color="dark">Last Inspection date</ion-label>
+              <ion-input type="text"></ion-input>
+            </ion-item>
+          
+            <ion-item>
+              <ion-label stacked color="dark">Start Inspection Date</ion-label>
+              <ion-input type="text"></ion-input>
+            </ion-item>
+          
+            <ion-item>
+              <ion-label stacked color="dark">Inspected By</ion-label>
+              <ion-input type="text"></ion-input>
+            </ion-item>
+          
+            <ion-item>
+              <ion-label color="dark">Verified</ion-label>
+              <ion-toggle disabled checked="false"></ion-toggle>
+            </ion-item>
+          
+            <ion-item>
+              <ion-label color="dark">Approved</ion-label>
+              <ion-toggle disabled checked="false"></ion-toggle>
+            </ion-item>
+          </ion-col>
+
+          <ion-col col-6>
+            <ion-item>
+              <ion-label stacked color="dark">RFID ID</ion-label>
+              <ion-input type="text"></ion-input>
+            </ion-item>
+
+            <ion-item>
+              <ion-label stacked color="dark">Air Selangor Internal Asset Identity</ion-label>
+              <ion-input type="text"></ion-input>
+            </ion-item>
+
+          
+
+      <div [ngSwitch]="inspect">
+        <div *ngSwitchCase="'routine'">
+          <ion-grid>
+            <ion-row>
+              <ion-col col-12>
+                <ion-list>
+
+                  <ion-list-header color="list-grey">ASSET GROUPING</ion-list-header>
+
+                </ion-list>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+
+          <div [ngSwitch]="inspect">
+            <div *ngSwitchCase="'structure'">
+              <ion-grid>
+                <ion-row>
+                  <ion-col col-12>
+                    <ion-list>
+
+                      <ion-list-header color="list-grey">ASSET GROUPING</ion-list-header>
+
+                    </ion-list>
+                  </ion-col>
+                </ion-row>
+              </ion-grid>
+          
+              <div [ngSwitch]="inspect">
+                <div *ngSwitchCase="'hazard'">
+                  <ion-grid>
+                    <ion-row>
+                      <ion-col col-12>
+                        <ion-list>
+    
+                          <ion-list-header color="list-grey">ASSET GROUPING</ion-list-header>
+    
+                        </ion-list>
+                      </ion-col>
+                    </ion-row>
+                  </ion-grid>
+
+                  <div [ngSwitch]="inspect">
+                    <div *ngSwitchCase="'media'">
+                      <ion-grid>
+                        <ion-row>
+                          <ion-col col-12>
+                            <ion-list>
+        
+                              <ion-list-header color="list-grey">ASSET GROUPING</ion-list-header>
+        
+                            </ion-list>
+                          </ion-col>
+                        </ion-row>
+                      </ion-grid>  

@@ -1,16 +1,100 @@
-// http://ionicframework.com/docs/theming/
+.wrapper {
+  display: grid; // Define a 10 pixel gap between each grid track
+  grid-gap: 5px; // Define a rule, that will be repeated for each grid column, where
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); // Specify the height of the row - minimum value of 50 pixels and a maximum
+  grid-auto-rows: minmax(50px, auto);
+  color: white;
+}
+
+.btnside {
+  background-color: transparent;
+}
+
+.bg {
+  background-color: color($colors, light);
+  
+  
+}
+ .bg-sidebar {
+  background-image: url('../assets/imgs/side.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+ }
 
 
-// App Global Sass
-// --------------------------------------------------
-// Put style rules here that you want to apply globally. These
-// styles are for the entire app and not just one component.
-// Additionally, this file can be also used as an entry point
-// to import other Sass files to be included in the output CSS.
-//
-// Shared Sass variables, which can be used to adjust Ionic's
-// default Sass variables, belong in "theme/variables.scss".
-//
-// To declare rules for a specific mode, create a child rule
-// for the .md, .ios, or .wp mode classes. The mode class is
-// automatically applied to the <body> element in the app.
+.h1 {
+  font-family: 'Roboto';
+  font-weight: bold
+}
+
+header,
+footer {
+  padding: 2em;
+  margin-left: 5px;
+  margin-right: 5px; // Add a flex rule for browsers not supporting the
+  flex: 0 1 100%; // Define the start and end values for the grid column
+  grid-column: 1 / -1; //text-align: center;
+  // background-color: rgb(82, 113, 116);
+  // color: #fff;
+  
+}
+
+.img-sidebar {
+  border-radius: 50%;
+  max-width: 100px;
+  border: 1px solid transparent; //-webkit-border-radius: 500px;
+  top: 50px;
+}
+
+.sidemenu-header {
+  padding: 0.3vh !important;
+  padding-left: 1.5vh !important;
+}
+
+.button-menu {
+  font-size: 1.0em;
+  font-weight: lighter;
+  color: white;
+}
+
+.label-md, .label-ios {
+  margin-top: 0.5em;
+  padding-top: 0.2em;
+}
+
+.p {
+  line-height: 0em;
+}
+
+.wrapper>* {
+  margin-bottom: 10px;
+  color: white;
+} 
+
+@supports (display: grid) {
+  .wrapper>* {
+    margin: 0;
+  }
+
+  modal-wrapper {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+// @media not all and (min-height: 600px) and (min-width: 768px) {
+//   ion-modal ion-backdrop {
+//     visibility: hidden;
+//   }
+// }
+
+@media only screen and (min-height: 0px) and (min-width: 0px) {
+  .modal-wrapper {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+}
+}

@@ -1,14 +1,38 @@
-<ion-header>
-  <ion-navbar>
-    <ion-title>
-      Ionic Blank
-    </ion-title>
-  </ion-navbar>
-</ion-header>
+<ion-content class="bg">
+  <ion-card class>
+    <img src="assets/imgs/dashboard.png"/>
+    <div class="card-title">DASHBOARD</div>
+    <div class="card-subtitle"> <button class="btnwidth" ion-button block color="light" block (click)="goToDashboard()" >SEE MORE</button></div>
+  </ion-card>
+  
+  <ion-card>
+    <img src="assets/imgs/register.png"/>
+    <div class="card-title">ASSET REGISTERATION</div>
+    <div class="card-subtitle"> <button class="btnwidth" ion-button block color="light" block (click)="goToRegister()">SEE MORE</button></div>
+  </ion-card>
 
-<ion-content padding>
-  The world is your oyster.
-  <p>
-    If you get lost, the <a href="http://ionicframework.com/docs/v2">docs</a> will be your guide.
-  </p>
+  <ion-card>
+    <img src="assets/imgs/profile.png"/>
+    <div class="card-title">ASSET INSPECTION</div>
+    <div class="card-subtitle"> <button class="btnwidth" ion-button block color="light" block (click)="goToInspection()">SEE MORE</button></div>
+  </ion-card>
+
+  <ion-card>
+    <img src="assets/imgs/sync.png"/>
+    <div class="card-title">PROFILE</div>
+    <div class="card-subtitle"> <button class="btnwidth" ion-button block color="light" block (click)="goToProfile()">SEE MORE</button></div>
+  </ion-card>
+
+  <ion-card>
+    <img src="assets/imgs/asset.png"/>
+    <div class="card-title">PENDING SYNC</div>
+    <div class="card-subtitle"> <button class="btnwidth" ion-button block color="light" block (click)="goToPending()">SEE MORE</button></div>
+  </ion-card>
+  
+  <ion-card class>
+    <img src="assets/imgs/dashboard.png"/>
+    <div class="card-title">ASSET APPROVAL</div>
+    <div class="card-subtitle"> <button class="btnwidth" ion-button block color="light" block (click)="ggoToAsset()" >SEE MORE</button></div>
+  </ion-card>
+
 </ion-content>
