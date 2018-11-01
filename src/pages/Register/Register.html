@@ -1,7 +1,20 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Asset Registration</ion-title>
+    <ion-buttons end>
+      <button icon-end color="orange" solid ion-button (click)="saveAsset()">Save Asset
+        <ion-icon name="download"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
 <ion-content>
   <div padding>
-
-    <div>
+    <!-- <div>
       <ion-grid>
         <ion-row>
           <ion-col col-8>
@@ -23,18 +36,16 @@
         </ion-row>
       </ion-grid>
 
-    </div>
+    </div> -->
 
 
     <ion-segment color="light" [(ngModel)]="asset">
       <ion-segment-button value="general-info">
         General Info
       </ion-segment-button>
-
       <ion-segment-button value="technical-spect">
-        Thecnical Specification
+        Technical Specifications
       </ion-segment-button>
-
       <ion-segment-button value="media">
         Images
       </ion-segment-button>
@@ -821,26 +832,24 @@
       <div>
         <ion-grid>
           <ion-row>
-            <ion-col col-2 offset-10>
-
-              <button icon-end class="btn" ion-button (click)="openModal()">Add Image
-                <ion-icon name="add"></ion-icon>
-              </button>
-
+            <ion-col col-3 offset-9>
+              <div align="right">
+                <button icon-end class="btn" ion-button (click)="openModal()">Add Image
+                  <ion-icon name="add"></ion-icon>
+                </button>
+              </div>
             </ion-col>
 
-            <ion-col col-3>
+            <ion-col col-3 *ngFor="let image of imageList">
               <ion-card>
-                <img src="assets/imgs/dashboard.png" />
+                <img [src]="showImage(image.photo)||'assets/imgs/dashboard.png'" />
                 <ion-card-content>
-                  <p>
-                    My Image Figure 1:
-                  </p>
+                  <p>{{image.title}}</p>
                 </ion-card-content>
               </ion-card>
             </ion-col>
 
-            <ion-col col-3>
+            <!-- <ion-col col-3>
               <ion-card>
                 <img src="assets/imgs/dashboard.png" />
                 <ion-card-content>
@@ -871,7 +880,7 @@
                   </p>
                 </ion-card-content>
               </ion-card>
-            </ion-col>
+            </ion-col> -->
           </ion-row>
         </ion-grid>
       </div>

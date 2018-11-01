@@ -19,9 +19,11 @@ import { AssetPageModule } from '../pages/asset/asset.module';
 import { PendingPageModule } from '../pages/pending/pending.module';
 import { HomePageModule } from '../pages/home/home.module';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
-// import { Camera } from '@ionic-native/camera';
+import { Camera } from '@ionic-native/camera';
 import { InspectionPageModule } from '../pages/inspection/inspection.module';
 import { OneSignal } from '@ionic-native/onesignal';
+import { ListPageModule } from '../pages/list/list.module';
+
 
 
 @NgModule({
@@ -29,12 +31,15 @@ import { OneSignal } from '@ionic-native/onesignal';
     MyApp,
     DashboardPage,
     RegisterPage,
+    
+   
   ],
   imports: [
     BrowserModule,
     LoginPageModule,
     ProfilePageModule,
     InspectionPageModule,
+    ListPageModule,
     HttpClientModule,
     IonicModule.forRoot(MyApp),
     ChartsModule,
@@ -43,16 +48,19 @@ import { OneSignal } from '@ionic-native/onesignal';
     PendingPageModule,
     HomePageModule,
     NgxDatatableModule
+
   ],
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
     DashboardPage,
     RegisterPage,
+    
   ],
   providers: [
     StatusBar,
     SplashScreen, 
+    Camera,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     UserProvider,
     ApiProvider,

@@ -1,3 +1,12 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Asset Inspection</ion-title>
+  </ion-navbar>
+</ion-header>
+
 <ion-content>
   <div padding>
   
@@ -94,13 +103,13 @@
             </ion-item>
           
             <ion-item>
-              <ion-label color="dark">Verified</ion-label>
-              <ion-toggle disabled checked="false"></ion-toggle>
+              <ion-label>Approved</ion-label>
+              <ion-toggle [(ngModel)]="approved"></ion-toggle>
             </ion-item>
           
             <ion-item>
-              <ion-label color="dark">Approved</ion-label>
-              <ion-toggle disabled checked="false"></ion-toggle>
+              <ion-label>Verified</ion-label>
+              <ion-toggle [(ngModel)]="verified"></ion-toggle>
             </ion-item>
           </ion-col>
 
@@ -114,22 +123,159 @@
               <ion-label stacked color="dark">Air Selangor Internal Asset Identity</ion-label>
               <ion-input type="text"></ion-input>
             </ion-item>
-
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </div>
+  </div>
           
 
       <div [ngSwitch]="inspect">
         <div *ngSwitchCase="'routine'">
-          <ion-grid>
-            <ion-row>
-              <ion-col col-12>
-                <ion-list>
+        
+        <ion-grid>
+          <ion-row>
+            <ion-col col-12>
+              <ion-list>
 
-                  <ion-list-header color="list-grey">ASSET GROUPING</ion-list-header>
+                <ion-list-header color="list-grey">Pre-Inspection Activities</ion-list-header>
 
-                </ion-list>
-              </ion-col>
-            </ion-row>
-          </ion-grid>
+
+              </ion-list>
+           
+              <ion-item>
+                <ion-label>Review all safety requirements?</ion-label>
+                <ion-toggle [(ngModel)]="safety"></ion-toggle>
+              </ion-item>
+            
+              <ion-item>
+                <ion-label>Ensure all necessary safety equipment in place?</ion-label>
+                <ion-toggle [(ngModel)]="place"></ion-toggle>
+              </ion-item>
+
+              <ion-item>
+                <ion-label>Reviews material such as plans, reports etc.</ion-label>
+                <ion-toggle [(ngModel)]="plans"></ion-toggle>
+              </ion-item>
+            
+              <ion-item>
+                <ion-label>All relevant parties are informed of the inspection and access are available?</ion-label>
+                <ion-toggle [(ngModel)]="access"></ion-toggle>
+              </ion-item>
+
+              <ion-item>
+                <ion-label>Ensure safety procedure in place?</ion-label>
+                <ion-toggle [(ngModel)]="access"></ion-toggle>
+              </ion-item>
+
+            </ion-col>
+
+            <ion-col col-12>
+              <ion-list>
+
+                <ion-list-header color="list-grey">Inspection of Main Structures</ion-list-header>
+
+
+              </ion-list>
+           
+              <ion-item>
+                <ion-label>Check for signs of unauthorized activity ( construction/ excavation/ vandalism)</ion-label>
+                <ion-toggle [(ngModel)]="sign"></ion-toggle>
+              </ion-item>
+            
+              <ion-item>
+                <ion-label>Check for signs of excessive vegetation at structure</ion-label>
+                <ion-toggle [(ngModel)]="vegetate"></ion-toggle>
+              </ion-item>
+
+              <ion-item>
+                <ion-label>Reviews material such as plans, reports etc.</ion-label>
+                <ion-toggle [(ngModel)]="plans"></ion-toggle>
+              </ion-item>
+            
+              <ion-item>
+                <ion-label>Check for sign of weakness in protective cover (riprap damages/ usual slopes/ beaching/ scarping)</ion-label>
+                <ion-toggle [(ngModel)]="cover"></ion-toggle>
+              </ion-item>
+
+              <ion-item>
+                <ion-label>Check for eareas exposed/ unprotected bank erosion</ion-label>
+                <ion-toggle [(ngModel)]="bank"></ion-toggle>
+              </ion-item>
+
+              <ion-item>
+                <ion-label>Check for excessive vegetation</ion-label>
+                <ion-toggle [(ngModel)]="excessive"></ion-toggle>
+              </ion-item>
+
+              <ion-item>
+                <ion-label>Check for signs of animal burrow activities</ion-label>
+                <ion-toggle [(ngModel)]="animal"></ion-toggle>
+              </ion-item>
+
+            </ion-col>
+
+            <ion-col col-12>
+              <ion-list>
+
+                <ion-list-header color="list-grey">Inspection of Appurtenant Structures</ion-list-header>
+
+
+              </ion-list>
+           
+              <ion-item>
+                <ion-label>Check pump station building for signs of deterioration, settlement and vandalism</ion-label>
+                <ion-toggle [(ngModel)]="pump"></ion-toggle>
+              </ion-item>
+            
+              <ion-item>
+                <ion-label>Check maintenance records of pumps and motors </ion-label>
+                <ion-toggle [(ngModel)]="motors"></ion-toggle>
+              </ion-item>
+
+              <ion-item>
+                <ion-label>Check condition of pump intake and outlet areas including trash screen, racks for debris accumulation. Check condition of pump power source (tanks, electrical )
+                  </ion-label>
+                <ion-toggle [(ngModel)]="intake"></ion-toggle>
+              </ion-item>
+            
+              <ion-item>
+                <ion-label>Check condition of pump power source (tanks, electrical lines, etc.)</ion-label>
+                <ion-toggle [(ngModel)]="power"></ion-toggle>
+              </ion-item>
+
+              <ion-item>
+                <ion-label>Test pumps for excessive vibration and operatibility</ion-label>
+                <ion-toggle [(ngModel)]="operatibility"></ion-toggle>
+              </ion-item>
+
+              <ion-item>
+                <ion-label>Test switching</ion-label>
+                <ion-toggle [(ngModel)]="switch"></ion-toggle>
+              </ion-item>
+
+              <ion-item>
+                <ion-label>Check alignment of floats and sensors</ion-label>
+                <ion-toggle [(ngModel)]="sensors"></ion-toggle>
+              </ion-item>
+
+              <ion-item>
+                <ion-label>Test operation of gates</ion-label>
+                <ion-toggle [(ngModel)]="gates"></ion-toggle>
+              </ion-item>
+
+              <ion-item>
+                <ion-label>Check condition of relief wells</ion-label>
+                <ion-toggle [(ngModel)]="wells"></ion-toggle>
+              </ion-item>
+
+            </ion-col>
+
+
+          </ion-row>
+        </ion-grid>
+      </div>
+    </div>
 
           <div [ngSwitch]="inspect">
             <div *ngSwitchCase="'structure'">
@@ -144,6 +290,8 @@
                   </ion-col>
                 </ion-row>
               </ion-grid>
+            </div>
+          </div>
           
               <div [ngSwitch]="inspect">
                 <div *ngSwitchCase="'hazard'">
@@ -158,6 +306,8 @@
                       </ion-col>
                     </ion-row>
                   </ion-grid>
+                </div>
+              </div>
 
                   <div [ngSwitch]="inspect">
                     <div *ngSwitchCase="'media'">
@@ -172,3 +322,5 @@
                           </ion-col>
                         </ion-row>
                       </ion-grid>  
+                    </div>
+                  </div>

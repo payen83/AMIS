@@ -62,25 +62,27 @@ page-login {
 
   .ing{
     position: relative;
-    width: 80%;
+    width: 15%;
     top: -25px;
     left: 0px;
-  }
-
-  .ipg{
-    position: relative;
-    width: 150%;
-    top: 7px;
-    right: 20px;
-  }
-
-  .ilg{
-    position: relative;
-    width: 55%;
-    top: 5px;
-    left: 50px;
+    float: left;
 
   }
+
+  // .ipg{
+  //   position: relative;
+  //   width: 150%;
+  //   top: 7px;
+  //   right: 20px;
+  // }
+
+  // .ilg{
+  //   position: relative;
+  //   width: 55%;
+  //   top: 5px;
+  //   left: 50px;
+
+  // }
 
   // .pass{
   //   text-align: 20px;
@@ -90,5 +92,3 @@ page-login {
 
 
   }
-  
-  

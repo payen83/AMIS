@@ -1,10 +1,19 @@
-  <ion-content class="bg">
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Profile</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content class="bg">
     <div class="wrapper">
       <header class="wrapper-text">
 
           <ion-grid>
              <ion-row>
-               <ion-col col-2><img src="assets/imgs/user.png" class="img" />
+               <ion-col col-2-xs><img src="assets/imgs/user.png" class="img" />
                </ion-col>
                <ion-col><h3>Farhan Ramli</h3>
                 <p>user@gmail.com</p>
@@ -16,7 +25,7 @@
               </ion-col>
             
               
-              <ion-col col-2>
+              <ion-col col-3>
                 <button ion-button icon-end color="orange">Update Profile  <ion-icon  ios="ios-create" md="md-create" ></ion-icon>
                 </button>
               </ion-col>

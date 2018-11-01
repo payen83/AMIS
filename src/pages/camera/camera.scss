@@ -14,11 +14,12 @@ page-camera {
   }
   .modal_content {
     position: absolute;
-    top: calc(50% - (50%/2));
+    //top: calc(50% - (90%/2));
+    top: 10%;
     left: 0;
     right: 0;
-    width: 50%;
-    height: 50%;
+    max-width: 70%;
+    max-height: 90%;
     padding: 10px;
     z-index: 100;
     margin: 0 auto;
@@ -39,8 +40,6 @@ page-camera {
     ion-card {
       position: relative;
       text-align: center;
-      
-     
     }
   
     .card-icon {
@@ -59,15 +58,12 @@ page-camera {
       width: 40%;
       color: black;
       text-align: center;
-      
     }
 
     .btnwidth{
        text-align: center;
        width: 100%;
-       left: 80px;
-
-
+       left: 70%;
     }
 
     .size{

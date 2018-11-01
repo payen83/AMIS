@@ -11,6 +11,12 @@ import { PendingPage } from '../pages/pending/pending';
 import { AssetPage } from '../pages/asset/asset';
 import { InspectionPage } from '../pages/inspection/inspection';
 import { OneSignal } from '@ionic-native/onesignal';
+import { ListPage } from '../pages/list/list';
+
+
+
+
+
 
 @Component({
   templateUrl: 'app.html'
@@ -23,29 +29,17 @@ export class MyApp {
   pages: Array<{title: string, component: any, icon: string}>;
 
   constructor( private oneSignal: OneSignal, public user: UserProvider, public events: Events, public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen) {
-    //this.initializeApp();
-    platform.ready().then(() => {
-      this.statusBar.styleDefault();
-      this.splashScreen.hide();
+    this.initializeApp();
 
-      this.oneSignal.startInit('ef3fc133-0f6c-44f6-b862-b60f29cca0da', '713119621249');
-
-      this.oneSignal.getIds().then((data) => {
-        alert(JSON.stringify(data))
-      }, err => {
-        alert(JSON.stringify(err))
-      });
-
-      this.oneSignal.endInit();
-    });
     // used for an example of ngFor and navigation
     this.pages = [
-      { title: 'Home', component: HomePage, icon: 'home' },
+      {title: 'Home', component: HomePage, icon: 'home'},
       { title: 'Dashboard', component: DashboardPage, icon: 'aperture' },
-      { title: 'Asset Registeration', component: RegisterPage, icon: 'list' },
+      { title: 'Asset List', component: ListPage, icon: 'list' },
+      { title: 'Asset Registration', component: RegisterPage, icon: 'clipboard' },
       { title: 'Asset Inspection', component: InspectionPage, icon: 'md-create' },
       { title: 'Profile', component: 'ProfilePage', icon: 'person' },
-      { title: 'Pending Sync', component: PendingPage, icon: 'refresh' },
+      {title: 'Pending Sync', component: PendingPage, icon: 'refresh'},
       { title: 'Asset Status', component: AssetPage, icon: 'done-all'}
      
     ];
@@ -55,6 +49,20 @@ export class MyApp {
 
   initializeApp() {
     
+    this.platform.ready().then(() => {
+      this.statusBar.styleDefault();
+      this.splashScreen.hide();
+      this.oneSignal.startInit('14ab8625-efd9-4b39-b071-2e51809d5334', '1071403410139');
+
+      this.oneSignal.getIds().then((data) => {
+        //alert(JSON.stringify(data))
+      }, err => {
+        //alert(JSON.stringify(err))
+
+      });
+      this.oneSignal.endInit();
+      
+    });
   }
 
   logout(){

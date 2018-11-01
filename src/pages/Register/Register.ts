@@ -19,8 +19,13 @@ export class RegisterPage {
   assetgroupList: Array<any>;
   assetlocList: Array<any>;
 
+  imageList: Array<any>;
+
   constructor( public modal: ModalController, public storage: Storage, public navCtrl: NavController, public navParams: NavParams) {
     this.info = 'general-info';
+
+    this.imageList = [];
+
     this.assetgroup = {
       id:null,
       primary:null,
@@ -79,8 +84,6 @@ export class RegisterPage {
       }
     })
 
-
-
     console.log
     this.assetgroupList = [];
 
@@ -100,16 +103,35 @@ export class RegisterPage {
     this.navCtrl.push('PendingPage');
   }
 
-  openModal() {
-    const myModal = this.modal.create('CameraPage')
+  showImage(image){
+    if (!image){
+      return null;
+    } else {
+      return 'data:image/jpeg;base64,' + image;
+    }
+  }
 
+  openModal() {
+    // let imageId = this.imageList.length;
+    let id: any = Number(this.imageList.length) + 1;
+
+    let params = {
+      type: 'new',
+      id: id
+    }
+
+    const myModal = this.modal.create('CameraPage', {params: params},  {cssClass: 'camera-modal' })
+
+    myModal.onDidDismiss(data => {
+      if(data){
+        this.imageList.push(data);
+      }
+    })
     myModal.present();
   }
 
   ionViewDidLoad(){
     this.asset="general-info";
-
-
   }
 
   
