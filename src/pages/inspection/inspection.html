@@ -11,26 +11,11 @@
   <div padding>
   
     <div>
-        <ion-grid>
-          <ion-row>
-            <ion-col col-8>
-              <ion-searchbar (ionInput)="getItems($event)"></ion-searchbar>
-            </ion-col>
-  
-            <ion-col col-2>
-              <button ion-button icon-end color="orange" outline>Edit Asset
-                <ion-icon ios="ios-create" md="md-create"></ion-icon>
-              </button>
-            </ion-col>
-  
-            <ion-col col-2>
+
               <button icon-end class="button-color" ion-button>Save Asset
                 <ion-icon name="download"></ion-icon>
               </button>
-            </ion-col>
-  
-          </ion-row>
-        </ion-grid>
+         
   
       </div>
   
@@ -284,9 +269,61 @@
                   <ion-col col-12>
                     <ion-list>
 
-                      <ion-list-header color="list-grey">ASSET GROUPING</ion-list-header>
+                      <ion-list-header color="list-grey">1.0 Approaches</ion-list-header>
 
                     </ion-list>
+                  </ion-col>
+
+                  <ion-col col-1>
+                  <ion-label>1.1</ion-label>
+
+                  </ion-col>
+
+                  <ion-col col-5> 
+                    
+                    <ion-item>
+                      <ion-label>Signage</ion-label>
+                    </ion-item>
+                    
+                    <ion-item>
+                      <ion-label>Damages</ion-label>
+                      <ion-checkbox color="dark" checked="true"></ion-checkbox>
+                    </ion-item>
+                    
+                    <ion-item>
+                      <ion-label>Cleanliness</ion-label>
+                      <ion-checkbox color="dark" checked="true"></ion-checkbox>
+                    </ion-item>
+                    
+                    <ion-item>
+                      <ion-label>Orientation</ion-label>
+                      <ion-checkbox color="dark" checked="true"></ion-checkbox>
+                    </ion-item>
+                    
+                    <ion-item>
+                      <ion-label>Visibility</ion-label>
+                      <ion-checkbox color="dark" checked="true"></ion-checkbox>
+                    </ion-item>
+                    
+                    <ion-item>
+                      <ion-label>Loose or missing bolt</ion-label>
+                      <ion-checkbox color="dark" checked="true"></ion-checkbox>
+                    </ion-item>
+
+                  </ion-col>
+
+                  <ion-col col-6>
+                    <!-- <ion-content>
+                      <ion-card padding>
+                  
+                        <rating [(ngModel)]="rate" max="5" empthStarIconName="star-outline" halfStIconName="star-half" starIconName="star" nullable="false"
+                          (ngModelChange)="onModelChange($event)">
+                        </rating>
+                  
+                        <h2>{{rate}}</h2>
+                  
+                      </ion-card>
+                    </ion-content> -->
                   </ion-col>
                 </ion-row>
               </ion-grid>
@@ -311,16 +348,9 @@
 
                   <div [ngSwitch]="inspect">
                     <div *ngSwitchCase="'media'">
-                      <ion-grid>
-                        <ion-row>
-                          <ion-col col-12>
-                            <ion-list>
-        
-                              <ion-list-header color="list-grey">ASSET GROUPING</ion-list-header>
-        
-                            </ion-list>
-                          </ion-col>
-                        </ion-row>
-                      </ion-grid>  
+                      <div>
+                   
+                      </div>
                     </div>
                   </div>
+                </ion-content>

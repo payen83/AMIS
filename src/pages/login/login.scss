@@ -4,14 +4,14 @@ page-login {
     position: relative;
     margin-top: -5em;
     //width: calc(100% - 24px);
-    height: 500px;
-    width: 420px;
+    height: 400px;
+    width: 380px;
     background-color: white;
     text-align: center;
     margin: 20px;
     box-shadow: none;
     border-radius: 10px;
-    left: 80px;
+    left: 100px;
   
   
   }
@@ -51,7 +51,7 @@ page-login {
     width: 320px;
     height: auto;
     margin: 4vh;
-    margin-left: 5vh;
+    margin-left: 3.5vh;
   }
 
   .btnwidth{
@@ -67,6 +67,24 @@ page-login {
     left: 0px;
     float: left;
 
+  }
+
+  .footer{
+   position: fixed;
+   left: 0;
+   bottom: 0;
+   width: 100%;
+   background-color: black;
+   color: white;
+   text-align: center;
+   
+  }
+
+  .idaman{
+    position: relative;
+    height: 30px;
+    width: 26px;
+    
   }
 
   // .ipg{

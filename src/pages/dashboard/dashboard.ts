@@ -1,12 +1,15 @@
 import { Component, ViewChild} from '@angular/core';
 import { NavController } from 'ionic-angular';
-import{ Chart } from 'chart.js';
+// import{ Chart } from 'chart.js';
+import { ChartsModule } from 'ng2-charts';
 
 @Component({
   selector: 'page-dashboard',
   templateUrl: 'dashboard.html'
 })
 export class DashboardPage {
+  
+  
   public lineChartData:Array<any> = [
     {data: [100, 80, 280, 410, 560], label: 'Structure'},
     {data: [240, 285, 300, 340, 380], label: 'Electrical'},
@@ -94,12 +97,14 @@ public barChartOptions:any = {
   scaleShowVerticalLines: false,
   responsive: true
 };
-public barChartLabels:string[] = ['Instrument','Mechanical','Electrical','Structure'];
+public barChartLabels:string[] = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
 public barChartType:string = 'bar';
 public barChartLegend:boolean = true;
 
 public barChartData:any[] = [
-  {data: [65,90,140,30], label:'assets'}
+  {data: [520,450,310,780,560,460,310,420,580,601,710,900], label:'Instrument'},
+  {data: [401,250,290,580,480,370,300,380,390,401,720,600], label:'Mechanical'}
+
 ];
 
 // events
@@ -113,7 +118,7 @@ public chartHover(e:any):void {
 
 
   
-constructor (){}
+constructor (public navCtrl: NavController, public chart: ChartsModule){}
   IonViewDidLoad(){
     console.log('ioniViewLoad DashboardPage');
    

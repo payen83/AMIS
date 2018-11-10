@@ -16,8 +16,10 @@ import { Storage } from '@ionic/storage';
 })
 export class PendingPage {
   assetgroup: {id: string, primary: string, sub1: string, rfid: string, aisid: string, sub2: string};
+  imageData:{id: null, photo: null, title: null, description: null, dateCaptured: null, dateUploaded: null};
   assetlocList: Array<any>
   assetgroupList: Array<any>
+  imageList: Array<any>
   tablestyle = 'bootstrap';
   public config : Config;
   public columns : any;
@@ -28,10 +30,11 @@ export class PendingPage {
     this.assetlocList = [];
     this.assetgroupList = [];
     this.columns= [
+      { prop:'photo', name: 'photo' },
       { prop:'id', name: 'Asset ID' },
       { prop:'primary', name:'Asset Primary Category' },
-      { prop:'sub1', name:'Sub Category 1' },
-      { prop:'sub2', name:'Sub Category 2' }
+      { prop:'sub1', name:'Sub Category 1' }
+     
     ];
   }
 
@@ -59,7 +62,23 @@ export class PendingPage {
       }
     })
 
+    this.storage.get('IMAGE_LIST').then((val) =>{
 
+      if(val) {
+        this.imageList = JSON.parse(val);
+        console.log(this.imageList);
+      }else {
+        this.imageList = [];
+        console.log(this.imageList);
+      }
+    })
+
+
+  }
+
+  onUserEvent(e){
+    //alert(e.row.id);
+    console.log(e.row);
   }
 
 

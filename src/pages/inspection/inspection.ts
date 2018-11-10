@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
 
 /**
  * Generated class for the InspectionPage page.
@@ -17,10 +17,14 @@ export class InspectionPage {
   inspect:string;
   info:string;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor( public modal: ModalController, public navCtrl: NavController, public navParams: NavParams) {
   }
   
+  openModal() {
+    const myModal = this.modal.create('CameraPage')
 
+    myModal.present();
+  }
   ionViewDidLoad() {
     this.info = 'general-info';
     this.inspect="general-info";
