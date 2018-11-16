@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, Config } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Config, ModalController, } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
+
 
 /**
  * Generated class for the PendingPage page.
@@ -15,72 +16,84 @@ import { Storage } from '@ionic/storage';
   templateUrl: 'pending.html',
 })
 export class PendingPage {
-  assetgroup: {id: string, primary: string, sub1: string, rfid: string, aisid: string, sub2: string};
-  imageData:{id: null, photo: null, title: null, description: null, dateCaptured: null, dateUploaded: null};
-  assetlocList: Array<any>
-  assetgroupList: Array<any>
+  assetowning: {
+    id: number, owning_org: string, asset_own: string, main_op: string, op: string, region: string, wtp: string,
+    process_loc: string, function: string, sub_system: string, sub_function: string, sub_cat1: string, sub_cat2: string
+  };
+  gis: { gis_id: string, lat: string, long: string };
+
+  // assetgroup: {id: string, primary: string, sub1: string, rfid: string, aisid: string, sub2: string};
+  imageData: { id: null, photo: null, title: null, description: null, dateCaptured: null, dateUploaded: null };
+
+
+  // assetlocList: Array<any>
+  assetowningList: Array<any>
+  // assetgroupList: Array<any>
+  gisList: Array<any>
   imageList: Array<any>
   tablestyle = 'bootstrap';
-  public config : Config;
-  public columns : any;
-  public rows : any;
+  public config: Config;
+  public columns: any;
+  public rows: any;
   users: any;
 
-  constructor( public storage:Storage, public navCtrl: NavController, public navParams: NavParams) {
-    this.assetlocList = [];
-    this.assetgroupList = [];
-    this.columns= [
-      { prop:'photo', name: 'photo' },
-      { prop:'id', name: 'Asset ID' },
-      { prop:'primary', name:'Asset Primary Category' },
-      { prop:'sub1', name:'Sub Category 1' }
-     
+  constructor(public modalCtrl: ModalController, public modal: ModalController, public storage: Storage, public navCtrl: NavController, public navParams: NavParams) {
+    // this.assetowningList = this.navParams.get('params');
+    // this.assetlocList = [];
+    // this.assetgroupList = [];
+    this.gisList = [];
+    this.columns = [
+      { prop: 'id', name: 'id' },
+      { prop: 'process_loc', name: 'Process Location' },
+      { prop: 'function', name: 'Process Function ' },
+      { prop: 'sub_system', name: 'Sub System Category' },
+      { prop: 'sub_function', name: 'Sub System Function' }
     ];
   }
 
+  openModal(e) {
+
+    let params = {
+      id: e.row.id
+    }
+
+    const modal = this.modal.create('DatalistPage', { params: params }, { cssClass: 'camera-modal' })
+    modal.present();
+  }
+
   ionViewDidLoad() {
-        this.storage.get('ASSETLOC_LIST').then((val) =>{
+    this.storage.get('ASSETOWNING_LIST').then((val) => {
 
-      if(val) {
-        this.assetlocList = JSON.parse(val);
-        console.log(this.assetlocList);
-      }else{
-        this.assetlocList = [];
-      console.log(this.assetlocList);
-      }
-      
-    })
-
-    this.storage.get('ASSETGROUP_LIST').then((val) =>{
-
-      if(val) {
-        this.assetgroupList = JSON.parse(val);
-        console.log(this.assetgroupList);
-      }else {
-        this.assetgroupList = [];
-        console.log(this.assetgroupList);
+      if (val) {
+        this.assetowningList = JSON.parse(val);
+        console.log(JSON.stringify(this.assetowning))
+      } else {
+        this.assetowningList = [];
+        console.log(JSON.stringify(this.assetowning))
       }
     })
 
-    this.storage.get('IMAGE_LIST').then((val) =>{
+    this.storage.get('GIS_LIST').then((val) => {
 
-      if(val) {
+      if (val) {
+        this.gisList = JSON.parse(val);
+        console.log(this.gisList);
+      } else {
+        this.gisList = [];
+        console.log(this.gisList);
+      }
+    })
+
+    this.storage.get('IMAGE_LIST').then((val) => {
+      if (val) {
         this.imageList = JSON.parse(val);
         console.log(this.imageList);
-      }else {
+      } else {
         this.imageList = [];
         console.log(this.imageList);
       }
     })
-
-
   }
-
-  onUserEvent(e){
-    //alert(e.row.id);
-    console.log(e.row);
-  }
-
 
 
 }

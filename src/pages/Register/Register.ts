@@ -9,15 +9,31 @@ import { Storage } from '@ionic/storage';
 export class RegisterPage {
   asset:string;
   info: string;
-  assetgroup: {id: string, primary: string, sub1: string, rfid: string, aisid: string, sub2: string};
 
-  assetloc:{description: string, room: string, build: string, position: string, address1: string, address2: string, 
-  address3: string, city: string, postcode: string, tag: string, service: string, contact: string, plan: string, 
-  rate: string, failure: string, direction: string, breaker: string, state: string, country: string, pid: string, org: string, 
-  manager: string, rcm: string, backlog: string, connectedto: string, offset: string, source: string};
   
-  assetgroupList: Array<any>;
-  assetlocList: Array<any>;
+  // process_loc: string = "a"; "rw"; "tp"; "st"; "ps";
+  // sub_system: string = "pldc"; "pot"; "ht";
+  // sub_function: string ="pl"; "pmd"; "pc"; "rt1"; "rt2";
+  // assetgroup: {id: string, primary: string, sub1: string, rfid: string, aisid: string, sub2: string};
+
+  // assetloc:{description: string, room: string, build: string, position: string, address1: string, address2: string, 
+  // address3: string, city: string, postcode: string, tag: string, service: string, contact: string, plan: string, 
+  // rate: string, failure: string, direction: string, breaker: string, state: string, country: string, pid: string, org: string, 
+  // manager: string, rcm: string, backlog: string, connectedto: string, offset: string, source: string};
+
+  assetowning:{ id: number, owning_org: string,  main_op: string, op: string, region: string, wtp:string,
+  process_loc: string, function: string, sub_system: string, sub_function: string, class: string, asset_type: string, sub_cat1: string, sub_cat2: string};
+
+  gis:{ gis_id:string, lat:string, long:string };
+
+  
+  
+  // assetgroupList: Array<any>;
+  // assetlocList: Array<any>;
+  assetowningList: Array<any>;
+  gisList: Array<any>;
+  assetowningFunction: Array<any>;
+  id: any;
 
   imageList: Array<any>;
 
@@ -25,78 +41,141 @@ export class RegisterPage {
     this.info = 'general-info';
 
     this.imageList = [];
+    this.storage.get("id").then(id => {
+      if (id) {
+        this.id=parseInt(id)+1;
+      }
+      else {
+        this.id=1; 
+      }
 
-    this.assetgroup = {
-      id:null,
-      primary:null,
-      sub1:null,
-      rfid:null,
-      aisid:null,
-      sub2:null
-    };
+      console.log(this.id);
+      this.assetowning = {
+        id: this.id,
+        owning_org: 'PENGURUSAN AIR SELANGOR SDN BHD', 
+        main_op: 'OPERATION', 
+        op: 'WATER TREATMENT', 
+        region: 'EAST', 
+        wtp: 'LANGAT2',
+        process_loc: null, 
+        function: null, 
+        sub_system: null, 
+        sub_function: null,
+        class: null, 
+        asset_type: null,
+        sub_cat1: null, 
+        sub_cat2: null
+       };
    
-   this.assetloc = {
-    description: null, 
-    room: null, 
-    build: null, 
-    position: null, 
-    address1: null, 
-    address2: null, 
-    address3: null, 
-    city: null, 
-    postcode: null, 
-    tag: null, 
-    service: null, 
-    contact: null, 
-    plan: null, 
-    rate: null, 
-    failure: null, 
-    direction: null, 
-    breaker: null, 
-    state: null, 
-    country: null, 
-    pid: null, 
-    org: null, 
-    manager: null, 
-    rcm: null, 
-    backlog: null, 
-    connectedto: null, 
-    offset: null, 
-    source: null
+    }
+  )
+    
+    // this.assetgroup = {
+    //   id:null,
+    //   primary:null,
+    //   sub1:null,
+    //   rfid:null,
+    //   aisid:null,
+    //   sub2:null
+    // };
+   
+  //  this.assetloc = {
+  //   description: null, 
+  //   room: null, 
+  //   build: null, 
+  //   position: null, 
+  //   address1: null, 
+  //   address2: null, 
+  //   address3: null, 
+  //   city: null, 
+  //   postcode: null, 
+  //   tag: null, 
+  //   service: null, 
+  //   contact: null, 
+  //   plan: null, 
+  //   rate: null, 
+  //   failure: null, 
+  //   direction: null, 
+  //   breaker: null, 
+  //   state: null, 
+  //   country: null, 
+  //   pid: null, 
+  //   org: null, 
+  //   manager: null, 
+  //   rcm: null, 
+  //   backlog: null, 
+  //   connectedto: null, 
+  //   offset: null, 
+  //   source: null
 
-   };
+  //  };
 
-    this.storage.get('ASSETGROUP_LIST').then((val) =>{
+   this.assetowning = {
+     id: this.id,
+     owning_org: null, 
+     main_op: null, 
+     op: null, 
+     region: null, 
+     wtp: null,
+     process_loc: null, 
+     function: null, 
+     sub_system: null, 
+     sub_function: null, 
+     class: null, 
+     asset_type: null,
+     sub_cat1: null, 
+     sub_cat2: null
+    };
+
+    this.assetowningFunction =  [
+      {id:"01", name:"pump"},
+      {id:"02", name:"valve"},
+      {id:"03", name:"motor"},
+      {id:"04", name:"penstock"},
+      {id:"05", name:"generator"}
+    ];
+
+
+    this.gis = { 
+    gis_id:null, 
+    lat:null, 
+    long:null 
+    };
+
+    this.storage.get('ASSETOWNING_LIST').then((val) =>{
       
       if(val) {
-        this.assetgroupList = JSON.parse(val);
+        this.assetowningList = JSON.parse(val);
       }else {
-        this.assetgroupList = [];
+        this.assetowningList = [];
       }
     })
 
-    this.storage.get('ASSETLOC_LIST').then((val) =>{
+    this.storage.get('GIS_LIST').then((val) =>{
       
       if(val) {
-        this.assetlocList = JSON.parse(val);
+        this.gisList = JSON.parse(val);
       }else {
-        this.assetlocList = [];
+        this.gisList = [];
       }
     })
 
     console.log
-    this.assetgroupList = [];
+    this.assetowningList = [];
 
   }
 
   saveAsset(){
-    this.assetgroupList.push(this.assetgroup);
-    console.log(this.assetgroupList);
-    this.storage.set('ASSETGROUP_LIST',JSON.stringify(this.assetgroupList));
 
-    this.assetlocList.push(this.assetloc);
-    console.log(this.assetlocList);
-    this.storage.set('ASSETLOC_LIST',JSON.stringify(this.assetlocList));
+    console.log(this.assetowning);
+    this.storage.set("id", this.id)
+    this.assetowningList.push(this.assetowning);
+    console.log(this.assetowningList);
+    this.storage.set('ASSETOWNING_LIST',JSON.stringify(this.assetowningList));
+
+    this.gisList.push(this.gis);
+    console.log(this.gisList);
+    this.storage.set('ASSETLOC_LIST',JSON.stringify(this.gisList));
   }
 
   goToPendingPage(){
@@ -132,6 +211,7 @@ export class RegisterPage {
 
   ionViewDidLoad(){
     this.asset="general-info";
+   
   }
 
   
