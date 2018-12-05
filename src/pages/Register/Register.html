@@ -3,10 +3,10 @@
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>Asset Registration</ion-title>
+    <ion-title>{{title}}</ion-title>
     <ion-buttons end>
       <button icon-end color="orange" solid ion-button (click)="saveAsset()">Save Asset
-        <ion-icon name="download"></ion-icon>
+        <ion-icon ios="ios-bookmark-outline" md="md-bookmark"></ion-icon>
       </button>
     </ion-buttons>
   </ion-navbar>
@@ -58,6 +58,8 @@
     <div *ngSwitchCase="'general-info'">
       <ion-grid>
         <ion-row>
+        
+
           <ion-col col-12>
             <ion-list>
 
@@ -86,30 +88,33 @@
             <ion-item>
               <ion-label stacked color="dark">Process/Function</ion-label>
               <ion-select [(ngModel)]= "assetowning.function" placeholder="please select">
-                <ion-option *ngFor="let function of assetowningFunction" [value]="function.id">{{function.name}}</ion-option>
+                <ion-option *ngFor="let function of assetowningFunction" [value]="function.name">{{function.name}}</ion-option>
                
               </ion-select>
             </ion-item>
 
             <ion-item>
               <ion-label stacked color="dark">Sub Process/Function </ion-label>
-              <ion-select [(ngModel)]="assetowning.sub_function" >
-                <ion-option value="pl">PRE LIME</ion-option>
-                <ion-option value="pmd">POTASSIUM PERMANGANATE DOSING</ion-option>
-                <ion-option value="pc">POST CHLORINE</ion-option>
-                <ion-option value="rt1">RESIDUAL THICKENER 1</ion-option>
-                <ion-option value="rt2">RESIDUAL THICKENER 2</ion-option>
+              <ion-select [(ngModel)]= "assetowning.sub_function" placeholder="please select">
+                <ion-option *ngFor="let sub_function of assetowningSub_function" [value]="sub_function.name">{{sub_function.name}}</ion-option>
+               
               </ion-select>
             </ion-item>
 
             <ion-item>
               <ion-label stacked color="dark">Primary (asset type) </ion-label>
-              <ion-input type="text" [(ngModel)]="assetowning.asset_type"></ion-input>
+              <ion-select [(ngModel)]= "assetowning.asset_type" placeholder="please select">
+                <ion-option *ngFor="let asset_type of assetowningAsset_type" [value]="asset_type.name">{{asset_type.name}}</ion-option>
+               
+              </ion-select>
             </ion-item>
 
             <ion-item>
               <ion-label stacked color="dark">Sub Category 2</ion-label>
-              <ion-input type="text" [(ngModel)]="assetowning.sub_cat2"></ion-input>
+              <ion-select [(ngModel)]= "assetowning.sub_cat2" placeholder="please select">
+                <ion-option *ngFor="let sub_cat2 of assetowningSub_cat2" [value]="sub_cat2.name">{{sub_cat2.name}}</ion-option>
+               
+              </ion-select>
             </ion-item>
 
           </ion-col>
@@ -127,34 +132,34 @@
 
             <ion-item>
               <ion-label stacked color="dark">Process Location Category</ion-label>
-              <ion-select [(ngModel)]="assetowning.process_loc" >
-                <ion-option value="a">ADMIN</ion-option>
-                <ion-option value="rw">RAW WATER</ion-option>
-                <ion-option value="tp">TREATMENT PROCESS</ion-option>
-                <ion-option value="st">SLUDGE TREATMENT</ion-option>
-                <ion-option value="ps">POWER SUPPLY</ion-option>
+              <ion-select [(ngModel)]= "assetowning.process_loc" placeholder="please select">
+                <ion-option *ngFor="let process_loc of assetowningProcess_loc" [value]="process_loc.name">{{process_loc.name}}</ion-option>
+               
               </ion-select>
             </ion-item>
 
             <ion-item>
               <ion-label stacked color="dark">Sub Process/System</ion-label>
-              <ion-select [(ngModel)]="assetowning.sub_system" >
-                <ion-option value="pldc">PRE LIME DOSING CHAMBER</ion-option>
-                <ion-option value="pot">PRE OXIDATION TANK</ion-option>
-                <ion-option value="ht">HOLDING TANK</ion-option>
-                <ion-option value="trps">THICKENED RESIDUAL PUMPING STATION</ion-option>
-                <ion-option value="ggp">GENSET GENERATOR PLANT</ion-option>
+              <ion-select [(ngModel)]= "assetowning.sub_system" placeholder="please select">
+                <ion-option *ngFor="let sub_system of assetowningSub_system" [value]="sub_system.name">{{sub_system.name}}</ion-option>
+               
               </ion-select>
             </ion-item>
 
             <ion-item>
               <ion-label stacked color="dark">Asset Class</ion-label>
-              <ion-input type="text" [(ngModel)]="assetowning.class"></ion-input>
+              <ion-select [(ngModel)]= "assetowning.class" placeholder="please select">
+                <ion-option *ngFor="let class of assetowningClass" [value]="class.name">{{class.name}}</ion-option>
+               
+              </ion-select>
             </ion-item>
 
             <ion-item>
               <ion-label stacked color="dark">Sub Category 1</ion-label>
-              <ion-input type="text" [(ngModel)]="assetowning.sub_cat1"></ion-input>
+              <ion-select [(ngModel)]= "assetowning.sub_cat1" placeholder="please select">
+                <ion-option *ngFor="let sub_cat1 of assetowningSub_cat1" [value]="sub_cat1.name">{{sub_cat1.name}}</ion-option>
+               
+              </ion-select>
             </ion-item>
           
             
@@ -191,7 +196,7 @@
       </ion-item>
     </ion-col>
 
-    <ion-col col-12>
+    <!-- <ion-col col-12>
       <ion-list>
 
         <ion-list-header stacked color="list-grey">ASSET CATEGORIZATION</ion-list-header>
@@ -219,7 +224,7 @@
         <ion-input type="text"></ion-input>
       </ion-item>
 
-    </ion-col>
+    </ion-col> --> 
 
     <ion-col col-12>
       <ion-list>
@@ -336,12 +341,13 @@
 </ion-grid>
 </div>
 
-    <div *ngSwitchCase="'technical-spect'">
+<div *ngSwitchCase="'technical-spect'">
+
+  <div [ngSwitch]="assetowning.asset_type">
+    <div *ngSwitchCase="'PUMP'">
       <ion-grid>
         <ion-row>
-          <div [ngSwitch]="assetowning.function">
-            <div *ngSwitchCase="'01'">
-          <!-- option 1 = pump -->
+
           <ion-col col-12>
             <ion-list>
               <ion-list-header color="list-grey">PUMP</ion-list-header>
@@ -411,9 +417,13 @@
               <ion-input type="text"></ion-input>
             </ion-item>
           </ion-col>
-          </div>
-          <div *ngSwitchCase="'03'">
-          <!-- option 2 = motor -->
+        </ion-row>
+      </ion-grid>
+    </div>
+
+    <div *ngSwitchCase="'MOTOR'">
+      <ion-grid>
+        <ion-row>
           <ion-col col-12>
             <ion-list>
               <ion-list-header color="list-grey">MOTOR</ion-list-header>
@@ -457,7 +467,6 @@
               <ion-input type="text"></ion-input>
             </ion-item>
           </ion-col>
-
           <ion-col col-6>
             <ion-item>
               <ion-label stacked color="dark">Frequency</ion-label>
@@ -494,9 +503,14 @@
               <ion-input type="text"></ion-input>
             </ion-item>
           </ion-col>
-          </div>
-          <div *ngSwitchCase="'02'">
-          <!-- option 3 = valve -->
+
+        </ion-row>
+      </ion-grid>
+    </div>
+
+    <div *ngSwitchCase="'VALVE'">
+      <ion-grid>
+        <ion-row>
           <ion-col col-12>
             <ion-list>
               <ion-list-header color="list-grey">VALVE</ion-list-header>
@@ -560,9 +574,17 @@
             </ion-item>
 
           </ion-col>
-          </div>
-          <div *ngSwitchCase="'04'">
-<!-- option 4 = penstock -->
+
+        </ion-row>
+      </ion-grid>
+    </div>
+
+
+
+
+    <div *ngSwitchCase="'BOARD'">
+      <ion-grid>
+        <ion-row>
           <ion-col col-12>
             <ion-list>
               <ion-list-header color="list-grey">CIVIL STRUCTURE</ion-list-header>
@@ -608,9 +630,16 @@
               <ion-input type="text"></ion-input>
             </ion-item>
           </ion-col>
-          </div>
-          <div *ngSwitchCase="'05'">
-          <!-- option 5 = generator -->
+
+        </ion-row>
+      </ion-grid>
+    </div>
+
+
+
+    <div *ngSwitchCase="'TANK'">
+      <ion-grid>
+        <ion-row>
           <ion-col col-12>
             <ion-list>
               <ion-list-header color="list-grey">TANK</ion-list-header>
@@ -686,15 +715,16 @@
               <ion-input type="text"></ion-input>
             </ion-item>
 
-          
-            </ion-col>
-            </div>
-          </div>
+
+          </ion-col>
+
         </ion-row>
-
-
       </ion-grid>
     </div>
+
+  </div>
+</div>
+
 
     <div *ngSwitchCase="'media'">
       <div>
@@ -716,6 +746,8 @@
                 </ion-card-content>
               </ion-card>
             </ion-col>
+
+            
           </ion-row>
         </ion-grid>
       </div>
@@ -723,7 +755,7 @@
   </div>
 </ion-content>
 
- <!-- <ion-col col-12>
+  <!-- <ion-col col-12>
             <ion-list> -->
 
               <!-- <ion-list-header color="list-grey">ASSET GROUPING</ion-list-header>

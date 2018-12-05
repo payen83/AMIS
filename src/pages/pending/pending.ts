@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, Config, ModalController, } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
+import { RegisterPage } from '../register/register';
+import { InspectionPage } from '../inspection/inspection';
 
 
 /**
@@ -16,9 +18,11 @@ import { Storage } from '@ionic/storage';
   templateUrl: 'pending.html',
 })
 export class PendingPage {
+  
+  pending: string;
   assetowning: {
-    id: number, owning_org: string, asset_own: string, main_op: string, op: string, region: string, wtp: string,
-    process_loc: string, function: string, sub_system: string, sub_function: string, sub_cat1: string, sub_cat2: string
+    id: number, owning_org: string,  main_op: string, op: string, region: string, wtp: string,
+    process_loc: string, function: string, sub_system: string, sub_function: string, class: string, asset_type: string, sub_cat1: string, sub_cat2: string
   };
   gis: { gis_id: string, lat: string, long: string };
 
@@ -36,6 +40,7 @@ export class PendingPage {
   public columns: any;
   public rows: any;
   users: any;
+  id;
 
   constructor(public modalCtrl: ModalController, public modal: ModalController, public storage: Storage, public navCtrl: NavController, public navParams: NavParams) {
     // this.assetowningList = this.navParams.get('params');
@@ -44,10 +49,11 @@ export class PendingPage {
     this.gisList = [];
     this.columns = [
       { prop: 'id', name: 'id' },
-      { prop: 'process_loc', name: 'Process Location' },
-      { prop: 'function', name: 'Process Function ' },
-      { prop: 'sub_system', name: 'Sub System Category' },
-      { prop: 'sub_function', name: 'Sub System Function' }
+      { prop: 'owning_org', name: 'Owning Organisation' },
+      { prop: 'main_op', name: 'Main Operation' },
+      { prop: 'op', name: 'Operation' },
+      { prop: 'region', name: 'Region' }
+      
     ];
   }
 
@@ -58,10 +64,20 @@ export class PendingPage {
     }
 
     const modal = this.modal.create('DatalistPage', { params: params }, { cssClass: 'camera-modal' })
+
+    modal.onDidDismiss(response => {
+      if(response){
+        if(response.type == 'edit'){
+          this.navCtrl.setRoot(RegisterPage, {params: response.data, index: response.index });
+          
+        }
+      }
+    })
     modal.present();
   }
 
   ionViewDidLoad() {
+    this.pending = "register";
     this.storage.get('ASSETOWNING_LIST').then((val) => {
 
       if (val) {
@@ -80,7 +96,7 @@ export class PendingPage {
         console.log(this.gisList);
       } else {
         this.gisList = [];
-        console.log(this.gisList);
+        console.log(this.gisList); 
       }
     })
 

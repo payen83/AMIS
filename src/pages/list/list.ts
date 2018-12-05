@@ -1,7 +1,13 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
+import { HttpClient } from '@angular/common/http';
+import { InspectionPage } from '../inspection/inspection';
 
+
+export interface Config {
+  asset: string;
+}
 
 
 @IonicPage()
@@ -10,59 +16,68 @@ import { Storage } from '@ionic/storage';
   templateUrl: 'list.html',
 })
 export class ListPage {
-  assetowning: { owning_org: string, asset_own: string, main_op: string, op: string, region: string, wtp: string,
-   process_loc: string, function: string, sub_system: string, sub_function: string, sub_cat1: string, sub_cat2: string};
+  modalOpen: boolean;
+  assetowning: {
+    id: number, owning_org: string, main_op: string, op: string, region: string, wtp: string,
+    process_loc: string, function: string, sub_system: string, sub_function: string, class: string, asset_type: string, sub_cat1: string, sub_cat2: string
+  };
   //  assetgroup: {id: string, primary: string, sub1: string, rfid: string, aisid: string, sub2: string};
   // assetlocList: Array<any>
   // assetgroupList: Array<any>
   assetowningList: Array<any>
   tablestyle = 'bootstrap';
-  public config : any;
-  public columns : any;
-  public rows : any;
+  public config: Config;
+  public columns: any;
+  public rows: any;
   users: any;
 
-  constructor( public storage:Storage, public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public modalCtrl: ModalController, public modal: ModalController, public _HTTP: HttpClient, public storage: Storage, public navCtrl: NavController, public navParams: NavParams) {
     // this.assetlocList = [];
     // this.assetgroupList = [];
+    this.modalOpen = true;
     this.assetowningList = [];
-    this.columns= [
-      {prop:'process_loc', name: 'Process Location' },
-      { prop:'function', name:'Process Function ' },
-      { prop:'sub_system', name:'Sub System Category' },
-      { prop:'sub_function', name:'Sub System Function' }
-
+    this.columns = [
+      { prop: 'process_loc', name: 'Process Location' },
+      { prop: 'function', name: 'Process Function ' },
+      { prop: 'sub_system', name: 'Sub System Category' },
+      { prop: 'sub_function', name: 'Sub System Function' }
     ];
 
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad ListPage');
+  async openModal(e) {
+    console.log('trigger',e);
+
+    let params = {
+      id: e.row.id
+    }
+
+    const modal = this.modal.create('Datalist2Page', { params: params }, { cssClass: 'camera-modal' })
+
+    modal.onDidDismiss(response => {
+      this.modalOpen = true;
+      if (response) {
+        console.log(response)
+        if (response.type == 'inspect') {
+          this.navCtrl.setRoot(InspectionPage, { params: response.data });
+        }
+      }
+    })
+    if(this.modalOpen){
+      this.modalOpen = false;
+      return await modal.present();
+    }
   }
-//     this.storage.get('ASSETLOC_LIST').then((val) =>{
 
-//   if(val) {
-//     this.assetlocList = JSON.parse(val);
-//     console.log(this.assetlocList);
-//   }else{
-//     this.assetlocList = [];
-//   console.log(this.assetlocList);
-//   }
-  
-// })
-
-// this.storage.get('ASSETGROUP_LIST').then((val) =>{
-
-//   if(val) {
-//     this.assetgroupList = JSON.parse(val);
-//     console.log(this.assetgroupList);
-//   }else {
-//     this.assetgroupList = [];
-//     console.log(this.assetgroupList);
-//   }
-// })
-
-
-// }
+  ionViewDidLoad(): void {
+    this._HTTP
+      .get<Config>('../../assets/data/asset.json')
+      .subscribe((data) => {
+        this.rows = data.asset;
+      });
+  }
 
 }
+
+
+
