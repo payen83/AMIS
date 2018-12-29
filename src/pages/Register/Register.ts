@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, ModalController } from 'ionic-angular';
+import { NavController, NavParams, ModalController, AlertController, LoadingController } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 import { Geolocation } from '@ionic-native/geolocation';
 
@@ -11,25 +11,25 @@ export class RegisterPage {
   asset: string;
   info: string;
   title: string;
-
-  // assetgroup: {id: string, primary: string, sub1: string, rfid: string, aisid: string, sub2: string};
-
-  // assetloc:{description: string, room: string, build: string, position: string, address1: string, address2: string, 
-  // address3: string, city: string, postcode: string, tag: string, service: string, contact: string, plan: string, 
-  // rate: string, failure: string, direction: string, breaker: string, state: string, country: string, pid: string, org: string, 
-  // manager: string, rcm: string, backlog: string, connectedto: string, offset: string, source: string};
-
-  assetowning: {
-    id: number, owning_org: string, main_op: string, op: string, region: string, wtp: string,
-    process_loc: string, function: string, sub_system: string, sub_function: string, class: string, asset_type: string, sub_cat1: string, sub_cat2: string
-  };
-
+  assetCorrectiveList: Array<any>;
+  pm: any;
   gis: { gis_id: string, lat: number, long: number };
 
+  assetowning: {
+    id: number, owning_org: string, main_op: string,
+    op: string, region: string, wtp: string,
+    process_loc: string, function: string, sub_system: string,
+    sub_function: string, class: string, asset_type: string,
+    sub_cat1: string, sub_cat2: string,
+    pm: string, brand: string, size1: string,
+    size2: string, size3: string, parentplate_no: string,
+    cm: string, model_no: string, unit_size1: string,
+    unit_size2: string, unit_size3: string, plate_no: string,
+    formulated: string, serial_no: string, scada: string, asset_tag: string,
+    vendor_part: string, external_id: string, pailet_no: string, imageList: Array<any>,
+    gis: { gis_id: string, lat: number, long: number }
+  };
 
-
-  // assetgroupList: Array<any>;
-  // assetlocList: Array<any>;
   assetowningList: Array<any>;
   gisList: Array<any>;
   assetowningFunction: Array<any>;
@@ -46,7 +46,7 @@ export class RegisterPage {
 
   imageList: Array<any>;
 
-  constructor(private geolocation: Geolocation, public modal: ModalController, public storage: Storage, public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public loadingCtrl: LoadingController, public alertCtrl: AlertController, private geolocation: Geolocation, public modal: ModalController, public storage: Storage, public navCtrl: NavController, public navParams: NavParams) {
     this.info = 'general-info';
     this.assetowning = {
       id: this.id,
@@ -62,23 +62,49 @@ export class RegisterPage {
       class: null,
       asset_type: null,
       sub_cat1: null,
-      sub_cat2: null
+      sub_cat2: null,
+      pm: null,
+      brand: null,
+      size1: null,
+      size2: null,
+      size3: null,
+      parentplate_no: null,
+      cm: null,
+      model_no: null,
+      unit_size1: null,
+      unit_size2: null,
+      unit_size3: null,
+      plate_no: null,
+      formulated: null,
+      serial_no: null,
+      scada: null,
+      asset_tag: null,
+      vendor_part: null,
+      external_id: null,
+      pailet_no: null,
+      imageList: [],
+      gis: { gis_id: null, lat: null, long: null }
     };
-    this.imageList = [];
+    // this.imageList = [];
 
 
     let data = this.navParams.get('params');
     this.index = this.navParams.get('index');
-    console.log('data');
-    console.log(data);
+    //console.log('data');
+    //console.log(data);
     if (data) {
       // for edit case
       this.assetowning = data;
+      // this.gis = this.assetowning.gis;
       this.type = 'edit';
-
       this.title = 'Edit Asset';
     } else {
       // new registration
+      let loading = this.loadingCtrl.create({
+        spinner: 'circles',
+        content: 'Please Wait for latitude and longitude to be retrieve..'
+      });
+
       this.type = 'register';
       this.title = 'Asset Registration'
       this.storage.get("id").then(id => {
@@ -88,8 +114,12 @@ export class RegisterPage {
         else {
           this.id = 1;
         }
+        let d = new Date();
+        this.pm = new Date();
+        this.pm.setDate(d.getDate() + 90);
+        // console.log('cm',this.cm);
+        // console.log(this.id);
 
-        console.log(this.id);
         this.assetowning = {
           id: this.id,
           owning_org: 'PENGURUSAN AIR SELANGOR SDN BHD',
@@ -104,54 +134,45 @@ export class RegisterPage {
           class: null,
           asset_type: null,
           sub_cat1: null,
-          sub_cat2: null
+          sub_cat2: null,
+          pm: this.pm.toISOString(),
+          brand: null,
+          size1: null,
+          size2: null,
+          size3: null,
+          parentplate_no: null,
+          cm: null,
+          model_no: null,
+          unit_size1: null,
+          unit_size2: null,
+          unit_size3: null,
+          plate_no: null,
+          formulated: null,
+          serial_no: null,
+          scada: null,
+          asset_tag: null,
+          vendor_part: null,
+          external_id: null,
+          pailet_no: null,
+          imageList: [],
+          gis: { gis_id: null, lat: null, long: null }
         };
 
+        this.geolocation.getCurrentPosition().then((resp) => {
+          loading.dismiss();
+          this.assetowning.gis.lat = resp.coords.latitude;
+          this.assetowning.gis.long = resp.coords.longitude;
+          console.log(this.assetowning.gis.lat);
+        }).catch((error) => {
+          console.log('Error getting location', error);
+          loading.dismiss();
+        });
+
       })
+
+
+      // this.assetowning.pm = (this.cm.setDate(d.getDate()+90)).toISOString();
     }
-
-
-    // this.assetgroup = {
-    //   id:null,
-    //   primary:null,
-    //   sub1:null,
-    //   rfid:null,
-    //   aisid:null,
-    //   sub2:null
-    // };
-
-    //  this.assetloc = {
-    //   description: null, 
-    //   room: null, 
-    //   build: null, 
-    //   position: null, 
-    //   address1: null, 
-    //   address2: null, 
-    //   address3: null, 
-    //   city: null, 
-    //   postcode: null, 
-    //   tag: null, 
-    //   service: null, 
-    //   contact: null, 
-    //   plan: null, 
-    //   rate: null, 
-    //   failure: null, 
-    //   direction: null, 
-    //   breaker: null, 
-    //   state: null, 
-    //   country: null, 
-    //   pid: null, 
-    //   org: null, 
-    //   manager: null, 
-    //   rcm: null, 
-    //   backlog: null, 
-    //   connectedto: null, 
-    //   offset: null, 
-    //   source: null
-
-    //  };
-
-
 
     this.assetowningProcess_loc = [
       { id: "01", name: "ADMIN" },
@@ -177,7 +198,6 @@ export class RegisterPage {
       { id: "06", name: "SLUDGE THICKENINGTANK 3" },
       { id: "07", name: "SLUDGE THICKENINGTANK 4" },
       { id: "08", name: "GENERATOR" }
-
     ];
 
     this.assetowningSub_function = [
@@ -190,14 +210,13 @@ export class RegisterPage {
       { id: "07", name: "RESIDUAL THICKENER 3" },
       { id: "08", name: "RESIDUAL THICKENER 4" },
       { id: "09", name: "TRANSFORMER" }
-
     ];
 
     this.assetowningClass = [
       { id: "01", name: "ELECTRICAL" },
       { id: "02", name: "MECHANICAL" },
       { id: "03", name: "STRUCTURE" },
-      { id: "04", name: "Instrument" }
+      { id: "04", name: "INSTRUMENT" }
     ];
 
     this.assetowningAsset_type = [
@@ -262,8 +281,6 @@ export class RegisterPage {
       { id: "39", name: "FUEL OIL TRANSFER PUMP" },
       { id: "40", name: "MOTOR FUEL OIL TRANSFER PUMP" },
       { id: "41", name: "OVERHEAD CRANE" }
-
-
     ];
 
     this.assetowningSub_cat2 = [
@@ -308,10 +325,13 @@ export class RegisterPage {
       { id: "39", name: "FUEL OIL TRANSFER PUMP" },
       { id: "40", name: "MOTOR FUEL OIL TRANSFER PUMP" },
       { id: "41", name: "OVERHEAD CRANE" }
-
-
     ];
 
+    this.assetCorrectiveList = [
+      { id: 1, name: "Once a year" },
+      { id: 2, name: "Twice a year" },
+      { id: 3, name: "Three times a year" }
+    ]
 
     this.gis = {
       gis_id: null,
@@ -319,13 +339,12 @@ export class RegisterPage {
       long: null
     };
 
-    this.geolocation.getCurrentPosition().then((resp) => {
 
-      this.gis.lat = resp.coords.latitude;
-      this.gis.long = resp.coords.longitude;
-    }).catch((error) => {
-      console.log('Error getting location', error);
-    });
+    // let loading = this.loadingCtrl.create({
+    //   spinner: 'circles',
+    //   content: 'Please Wait for latitude and longitude to be retrieve..'
+    // });
+
 
     let watch = this.geolocation.watchPosition();
     watch.subscribe((data) => {
@@ -354,61 +373,47 @@ export class RegisterPage {
 
     console.log
     this.gisList = [];
-
-
-
   }
 
 
-
-  saveAsset() {
+  showAlert() {
 
     if (this.type == 'register') {
-      console.log(this.assetowning);
-      this.storage.set("id", this.id)
-      this.assetowningList.push(this.assetowning);
-      console.log(this.assetowningList);
-      this.gisList.push(this.gis);
-      console.log(this.gisList);
-      this.storage.set('GIS_LIST', JSON.stringify(this.gisList));
 
-    } else  {
-
-      this.assetowningList[this.index] = this.assetowning;
-      
-    }
-
-    this.storage.set('ASSETOWNING_LIST', JSON.stringify(this.assetowningList));
+      const alert = this.alertCtrl.create({
+        title: 'Registration is saved!',
+        buttons: ['ok']
 
 
-  }
-
-  goToPendingPage() {
-    this.navCtrl.push('PendingPage');
-  }
-
-  showImage(image) {
-    if (!image) {
-      return null;
+      });
+      alert.present();
     } else {
-      return 'data:image/jpeg;base64,' + image;
+      const alert = this.alertCtrl.create({
+        title: 'Asset has been edited!',
+        buttons: ['ok']
+      });
+      alert.present();
     }
+  }
+
+  showImage(image: string) {
+    return 'data:image/jpeg;base64,' + image;
   }
 
   openModal() {
     // let imageId = this.imageList.length;
-    let id: any = Number(this.imageList.length) + 1;
+    let id: any = Number(this.assetowning.imageList.length) + 1;
 
     let params = {
       type: 'new',
       id: id
     }
 
-    const myModal = this.modal.create('CameraPage', { params: params }, { cssClass: 'camera-modal' })
+    const myModal = this.modal.create('CameraPage', { params: params }, { cssClass: 'camera-modal', enableBackdropDismiss: false })
 
     myModal.onDidDismiss(data => {
       if (data) {
-        this.imageList.push(data);
+        this.assetowning.imageList.push(data);
       }
     })
     myModal.present();
@@ -420,6 +425,30 @@ export class RegisterPage {
     this.asset = "general-info";
 
   }
+
+  saveAsset() {
+    //this.assetowning.gis = this.gis;
+    if (this.type == 'register') {
+      console.log(this.assetowning);
+      this.storage.set("id", this.id)
+      this.assetowningList.push(this.assetowning);
+      console.log(this.assetowningList);
+      // this.gisList.push(this.gis);
+      //console.log(this.gisList);
+      //this.storage.set('GIS_LIST', JSON.stringify(this.gisList));
+    } else {
+      this.assetowningList[this.index] = this.assetowning;
+    }
+      this.storage.set('ASSETOWNING_LIST', JSON.stringify(this.assetowningList));
+      this.showAlert();
+      this.goToPendingPage()
+  }
+
+  goToPendingPage() {
+    this.navCtrl.setRoot('PendingPage', {type: 'register'});
+  }
+
+
 
 
 }

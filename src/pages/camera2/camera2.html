@@ -1,6 +1,6 @@
 <ion-content class="main-view">
 
-  <div class="overlay" (click)="dismiss()"></div>
+  <!-- <div class="overlay" (click)="dismiss()"></div> -->
 
   <ion-grid class="modal_content">
         <!-- <ion-scroll > -->
@@ -15,7 +15,7 @@
           </div>
           <div class="card-btn"> 
             <!-- <div align="center"> -->
-            <button class="btnwidth" ion-button (click)="takePhoto()" block color="primary">Upload
+            <button class="btnwidth" ion-button (click)="selectPhoto()" block color="primary">Upload
             </button>
           </div>
         </ion-card>
@@ -41,16 +41,24 @@
           <ion-input type="text" [(ngModel)]="imageData.dateCaptured"></ion-input>
         </ion-item>
 
-        <ion-item>
+        <!-- <ion-item>
           <ion-label stacked color="dark">Date uploaded</ion-label>
           <ion-input type="text" [(ngModel)]="imageData.dateUploaded"></ion-input>
-        </ion-item>
+        </ion-item> -->
       </ion-col>
 
-      <ion-col col-4 offset-8 class="save">
+      <ion-col col-2 offset-8 class="save">
         <ion-buttons end>
-          <button ion-button full (click)="closeModal()">
+          <button ion-button full (click)="saveModal()">
             Save
+          </button>
+        </ion-buttons>
+      </ion-col>
+
+      <ion-col col-2 class="save">
+        <ion-buttons >
+          <button ion-button full (click)="closeModal()">
+            close
           </button>
         </ion-buttons>
       </ion-col>
